@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping()
+@RequestMapping("/location")
 public class LocationController {
 
     KafkaService kafkaService;
@@ -16,7 +16,7 @@ public class LocationController {
         this.kafkaService = kafkaService;
     }
 
-    @PostMapping()
+    @PostMapping("/send")
     public ResponseEntity<?> updatedLocation(String location){
         kafkaService.updatedLocation("location updated");
         return new ResponseEntity<>(HttpStatus.OK);
