@@ -15,8 +15,8 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime event_at;
+    private LocalDateTime eventAt;
 
-    @Column(nullable = false , length = 100)
-    private String Location;
+    @Column(name = "location", nullable = false , length = 100)
+    private String location;
 }
