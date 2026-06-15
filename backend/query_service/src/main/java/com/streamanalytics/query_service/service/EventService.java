@@ -16,13 +16,24 @@ public class EventService {
         this.eventRepo = eventRepo;
     }
 
+
     @Cacheable(value = "events")
-    public List<Event> getAllEvent() {
-       return eventRepo.findAll();
+    public List<Event> getEvent() {
+        return eventRepo.findAll();
     }
 
-    @Cacheable(value = "events" , key = "#EventId")
-    public Event EventById(Long EventId) {
-        return  eventRepo.findById(EventId).orElseThrow(() -> new EntityNotFoundException("Event Not Found"));
+    @Cacheable(value = "events" , key = "#eventId")
+    public Event getEventId(Long eventId) {
+        return eventRepo.findById(eventId).orElseThrow(() -> new EntityNotFoundException("Event Not Found"));
+    }
+
+    @Cacheable(value = "events")
+    public long count() {
+        return eventRepo.count();
+    }
+
+    @Cacheable(value = "events")
+    public Event getLatest() {
+        return eventRepo.
     }
 }
