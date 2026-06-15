@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/location")
+@RequestMapping("/api/location")
 public class LocationController {
 
     private final KafkaService kafkaService;
