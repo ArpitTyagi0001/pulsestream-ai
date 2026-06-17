@@ -7,6 +7,8 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class EventService {
@@ -17,23 +19,34 @@ public class EventService {
     }
 
 
-    @Cacheable(value = "events")
+    @Cacheable(value = "all-events")
     public List<Event> getEvent() {
         return eventRepo.findAll();
     }
 
-    @Cacheable(value = "events" , key = "#eventId")
+    @Cacheable(value = "event-by-id" , key = "#eventId")
     public Event getEventId(Long eventId) {
         return eventRepo.findById(eventId).orElseThrow(() -> new EntityNotFoundException("Event Not Found"));
     }
 
-    @Cacheable(value = "events")
+    @Cacheable(value = "total-events")
     public long count() {
         return eventRepo.count();
     }
 
-    @Cacheable(value = "events")
-    public Event getLatest() {
-        return eventRepo.
+    @Cacheable(value = "latest-events")
+    public List<Event> getLatest() {
+        return eventRepo.findTop10ByOrderByEventAtDesc();
+    }
+
+    @Cacheable(value = "location-count")
+    public Map<String , Long> countLocation() {
+       List<Event> events = eventRepo.findAll();
+
+       return events.stream()
+               .collect(Collectors.groupingBy(
+                      Event::getLocation,
+                      Collectors.counting()
+               ));
     }
 }
