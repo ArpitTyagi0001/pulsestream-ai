@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/dashboard")
@@ -32,8 +33,13 @@ public class EventController {
     }
 
     @GetMapping("/latest-events")
-    public Event latestEvent(){
+    public List<Event> latestEvent(){
         return  eventService.getLatest();
+    }
+
+    @GetMapping("/location-count")
+    public Map<String , Long> locationCount(){
+       return eventService.countLocation();
     }
 
 }
