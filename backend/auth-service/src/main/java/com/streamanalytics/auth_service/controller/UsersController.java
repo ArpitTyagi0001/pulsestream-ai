@@ -25,4 +25,10 @@ public class UsersController {
         UsersDto response = usersService.register(users);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
+    @PostMapping("/user-login")
+    public ResponseEntity<UsersDto> UsersLogin(@RequestBody Users users){
+       UsersDto response = usersService.login(users);
+       return ResponseEntity.ok(response);
+    }
 }
