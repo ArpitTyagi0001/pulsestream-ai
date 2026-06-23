@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MyUserDetailsService implements UserDetailsService {
+
+
     private final UsersRepo usersRepo;
 
     public MyUserDetailsService(UsersRepo usersRepo) {
@@ -18,9 +20,12 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Users user = usersRepo.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+        Users users = usersRepo.findByUsername(username);
 
-        return new UserPrinciple(user);
+        if(users == null) {
+            System.out.println("User not Found By username :" + username);
+            throw new UsernameNotFoundException("User Not Found username");
+        }
+        return new UserPrinciple(users);
     }
 }
