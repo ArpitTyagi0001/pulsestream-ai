@@ -18,14 +18,15 @@ public class UsersController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<UserDto> register(@RequestBody Users users){
-        UserDto user = usersService.userRegister(users);
-        return ResponseEntity.accepted().body(user);
+    public ResponseEntity<UserDto> userRegister(@RequestBody Users user){
+        UserDto user1 = usersService.userRegister(user);
+        return ResponseEntity.accepted().body(user1);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Boolean> login(@RequestBody Users users){
-         boolean result = usersService.userLogin(users);
-         return ResponseEntity.ok(result);
+    public String verify(@RequestBody Users user){
+        String result = usersService.userLogin(user);
+         return result;
     }
+
 }
