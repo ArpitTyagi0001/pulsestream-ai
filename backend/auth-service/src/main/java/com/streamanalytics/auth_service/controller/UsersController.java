@@ -28,5 +28,4 @@ public class UsersController {
         String result = usersService.userLogin(user);
          return result;
     }
-
 }
