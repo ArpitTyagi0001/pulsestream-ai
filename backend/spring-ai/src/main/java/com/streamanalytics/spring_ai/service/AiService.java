@@ -24,19 +24,22 @@ public class AiService {
                 .content();
     }
 
-    public String Summary() {
+    public String Summary(String token) {
         Long totalEvents = restClient.get()
                 .uri("http://localhost:8083/api/dashboard/total-events")
+                .header("Authorization", "Bearer " + token)
                 .retrieve()
                 .body(Long.class);
         
         String latestEvents = restClient.get()
                 .uri("http://localhost:8083/api/dashboard/latest-events")
+                .header("Authorization", "Bearer " + token)
                 .retrieve()
                 .body(String.class);
 
         Map<String , Long> locationCount = restClient.get()
                 .uri("http://localhost:8083/api/dashboard/location-count")
+                .header("Authorization", "Bearer " + token)
                 .retrieve()
                 .body(new ParameterizedTypeReference<Map<String, Long>>(){});
 
