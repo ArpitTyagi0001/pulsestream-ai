@@ -1,10 +1,7 @@
 package com.streamanalytics.spring_ai.controller;
 
 import com.streamanalytics.spring_ai.service.AiService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/ai")
@@ -22,7 +19,8 @@ public class AiController {
     }
 
     @GetMapping("/event-summary")
-    public String Summary(){
-        return aiService.Summary();
+    public String Summary(@RequestHeader("Authorization") String authHeader){
+        String token = authHeader.replace("Bearer ", "");
+        return aiService.Summary(token);
     }
 }
