@@ -26,18 +26,20 @@ public class UsersService {
     public UserDto userRegister(Users user) {
        user.setPassword(passwordEncoder.encode(user.getPassword()));
        Users user1 = usersRepo.save(user);
-       return new UserDto("User Successfully Register" , user.getUsername());
+       return new UserDto(user.getUsername(), "User Successfully Register");
     }
 
     public String userLogin(Users user) {
-        Authentication authentication =
-                authenticationManager
-                        .authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword()));
-
-        if(authentication.isAuthenticated()){
-             return jwtService.generateToken(user.getUsername());
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())
+            );
+            if (authentication.isAuthenticated()) {
+                return jwtService.generateToken(user.getUsername());
+            }
+            return "fail";
+        } catch (Exception e) {
+            return "fail";
         }
-
-        return "fail";
     }
 }
