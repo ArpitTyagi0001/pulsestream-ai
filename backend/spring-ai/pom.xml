@@ -6,7 +6,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.5.15</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
 	<groupId>com.streamanalytics</groupId>
 	<artifactId>spring-ai</artifactId>
@@ -80,6 +80,7 @@
 	</dependencyManagement>
 
 	<build>
+		<finalName>ai-service</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
