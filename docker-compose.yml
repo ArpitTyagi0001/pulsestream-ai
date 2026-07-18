@@ -52,3 +52,64 @@ services:
     container_name: ollama
     ports:
       - "11434:11434"
+
+  producer-service:
+    image: producer-service
+    container_name: producer-service
+    depends_on:
+      - kafka
+    ports:
+      - "8081:8081"
+
+  consumer-service:
+    image: consumer-service
+    container_name: consumer-service
+    depends_on:
+      - kafka
+      - event-db
+    ports:
+      - "8082:8082"
+
+  query-service:
+    image: query-service
+    container_name: query-service
+    depends_on:
+      - event-db
+      - redis
+    ports:
+      - "8083:8083"
+
+  auth-service:
+    image: auth-service
+    container_name: auth-service
+    depends_on:
+      - auth-db
+    ports:
+      - "8084:8084"
+
+  ai-service:
+    image: ai-service
+    container_name: ai-service
+    depends_on:
+      - ollama
+      - query-service
+    ports:
+      - "8085:8085"
+
+  api-gateway-service:
+    image: api-gateway-service
+    container_name: api-gateway
+    depends_on:
+      - auth-service
+      - query-service
+      - ai-service
+    ports:
+      - "8080:8080"
+
+  dashboard:
+    image: dashboard
+    container_name: dashboard
+    depends_on:
+      - api-gateway-service
+    ports:
+      - "5173:5173"
