@@ -1,6 +1,7 @@
 package com.streamanalytics.spring_ai.service;
 
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
@@ -11,6 +12,9 @@ import java.util.Map;
 public class AiService {
     private final ChatClient chatClient;
     private final RestClient restClient;
+
+    @Value("${query.service.url}")
+    private String queryServiceUrl;
 
     public AiService(ChatClient chatClient, RestClient restClient) {
         this.chatClient = chatClient;
@@ -26,19 +30,19 @@ public class AiService {
 
     public String Summary(String token) {
         Long totalEvents = restClient.get()
-                .uri("http://localhost:8083/api/dashboard/total-events")
+                .uri(queryServiceUrl + "/api/dashboard/total-events")
                 .header("Authorization", "Bearer " + token)
                 .retrieve()
                 .body(Long.class);
-        
+
         String latestEvents = restClient.get()
-                .uri("http://localhost:8083/api/dashboard/latest-events")
+                .uri(queryServiceUrl + "/api/dashboard/latest-events")
                 .header("Authorization", "Bearer " + token)
                 .retrieve()
                 .body(String.class);
 
         Map<String , Long> locationCount = restClient.get()
-                .uri("http://localhost:8083/api/dashboard/location-count")
+                .uri(queryServiceUrl + "/api/dashboard/location-count")
                 .header("Authorization", "Bearer " + token)
                 .retrieve()
                 .body(new ParameterizedTypeReference<Map<String, Long>>(){});
