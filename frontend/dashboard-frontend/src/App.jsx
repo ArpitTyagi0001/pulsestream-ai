@@ -423,7 +423,7 @@ export default function Dashboard() {
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <PulseDot status={connStatus} />
           <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 13, letterSpacing: "0.05em" }}>
-            STREAM-ANALYTICS <span style={{ color: "#6B7780" }}>// console</span>
+            STREAM-ANALYTICS <span style={{ color: "#5c6a75" }}>// console</span>
           </span>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
