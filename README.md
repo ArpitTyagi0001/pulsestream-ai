@@ -31,7 +31,7 @@ Java, Spring Boot, Spring Cloud Gateway, Kafka, PostgreSQL, Redis, Spring Securi
 - Docker & Docker Compose installed (get Docker)
 - Running locally
 
-- The entire stack (all 7 services + Kafka + PostgreSQL + Redis + Ollama) runs with a single command:
+# The entire stack (all 7 services + Kafka + PostgreSQL + Redis + Ollama) runs with a single command:
 
 docker compose up --build
 
